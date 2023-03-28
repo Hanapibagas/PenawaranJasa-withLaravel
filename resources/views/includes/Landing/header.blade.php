@@ -17,9 +17,12 @@
                 id="menu">
                 <nav
                     class="lg:space-x-12 space-x-0 lg:flex items-center justify-between text-base pt-8 lg:pt-0 lg:space-y-0 space-y-2">
-                    <a href="{{ route('index-home') }}" class="block nav-link active font-medium">Rumah</a>
-                    <a href="{{ route('explore-landing') }}" class="block nav-link text-serv-text">Mengeksplorasi</a>
-                    <a href="#" class="block nav-link text-serv-text">Bagaimana ?</a>
+                    <a href="{{ route('index-home') }}"
+                        class="block {{ request()->is('/') ? 'nav-link active font-medium' : 'nav-link text-serv-text' }}">Rumah</a>
+                    <a href="{{ route('explore-landing') }}"
+                        class="block {{ request()->is('explore') || request()->is('details/*') ? 'nav-link active font-medium' : 'nav-link text-serv-text' }}">Mengeksplorasi</a>
+                    <a href="#" class="block nav-link text-serv-text">Bagaimana
+                        ?</a>
                     <a href="#" class="block nav-link text-serv-text">Histori</a>
                     <a href="#" class="block nav-link text-serv-text">Tips</a>
                 </nav>
@@ -39,6 +42,7 @@
     </div>
 </section>
 @endguest
+
 @auth
 <section class="h-full w-full border-box transition-all duration-500 linear lg:px-16 md:px-20 px-8 py-8 bg-white">
     <div class="navbar-1-1" style="font-family: 'Poppins', sans-serif">
@@ -57,22 +61,33 @@
             <div class="hidden lg:flex lg:items-center lg:w-auto w-full lg:ml-auto lg:mr-auto flex-wrap items-center text-base justify-center"
                 id="menu">
                 <nav
-                    class="lg:space-x-12 space-x-0 lg:flex items-center justify-between text-base pt-8 lg:pt-0 lg:space-y-0 space-y-6">
-                    <a href="{{ route('index-home') }}" class="block nav-link active font-medium">Rumah</a>
-                    <a href="{{ route('explore-landing') }}" class="block nav-link text-serv-text">Mengeksplorasi</a>
-                    <a href="#" class="block nav-link text-serv-text">Bagaimana ?</a>
+                    class="lg:space-x-12 space-x-0 lg:flex items-center justify-between text-base pt-8 lg:pt-0 lg:space-y-0 space-y-2">
+                    <a href="{{ route('index-home') }}"
+                        class="block {{ request()->is('/') ? 'nav-link active font-medium' : 'nav-link text-serv-text' }}">Rumah</a>
+                    <a href="{{ route('explore-landing') }}"
+                        class="block {{ request()->is('explore') || request()->is('details/*') ? 'nav-link active font-medium' : 'nav-link text-serv-text' }}">Mengeksplorasi</a>
+                    <a href="#" class="block nav-link text-serv-text">Bagaimana
+                        ?</a>
                     <a href="#" class="block nav-link text-serv-text">Histori</a>
                     <a href="#" class="block nav-link text-serv-text">Tips</a>
                     <hr class="block lg:hidden">
-                    <a href="dashboard/index.php" class="block lg:hidden nav-link text-serv-text">Dashboard</a>
-                    <a href="index.php" class="block lg:hidden nav-link text-serv-text">Keluar</a>
+                    <a href="{{ route('member.dashboard-member') }}"
+                        class="block lg:hidden nav-link text-serv-text">Dashboard</a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementByID('logout-form').submit();"
+                        class="block lg:hidden nav-link text-serv-text">
+                        <form action="{{ route('login') }}" id="logout-form" method="POST" style="display: none">
+                            @csrf
+                            Keluar
+                        </form>
+                    </a>
                 </nav>
             </div>
 
             <div @click.away="open = false" class="hidden lg:block relative" x-data="{ open: false }">
                 <button @click="open = !open"
                     class="flex flex-row items-center w-full px-4 py-2 mt-2 text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                    Halo, Miles
+                    Halo, {{ Auth::user()->name }}
                     <img class="inline ml-3 h-12 w-12 rounded-full"
                         src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
                         alt="">
@@ -92,12 +107,15 @@
                     class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
                     <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
                         <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="dashboard/index.php">
+                            href="{{ route('member.dashboard-member') }}">
                             Dashboard
                         </a>
-                        <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="index.php">
-                            Keluar
+                        <a
+                            class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit">Keluar</button>
+                            </form>
                         </a>
                     </div>
                 </div>

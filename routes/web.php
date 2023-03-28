@@ -19,7 +19,7 @@ Route::get('details/{id}', [HomeController::class, 'details'])->name('details-la
 
 Route::group(['prefix' => 'member', 'as' => 'member.', 'middleware' => ['auth:sanctum', 'verified']], function () {
     // Dashboard
-    Route::get('dashboard', [MemberController::class, 'index'])->name('dashboard-member');
+    Route::get('dashboard', [MemberController:: class, 'index'])->name('dashboard-member');
 
     // Service
     Route::get('service', [ServiceController::class, 'index'])->name('');

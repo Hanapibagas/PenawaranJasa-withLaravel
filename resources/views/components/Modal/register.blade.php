@@ -20,7 +20,7 @@
                         </label>
                         <input
                             class="appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 placeholder-serv-text text-xs"
-                            id="name" name="name" type="text" placeholder="Your name">
+                            id="name" name="name" required type="text" placeholder="Your name">
                     </div>
                     <div class="mb-4">
                         <label class="block text-grey-darker text-sm mb-2" for="email">
@@ -28,7 +28,7 @@
                         </label>
                         <input
                             class="appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 placeholder-serv-text text-xs"
-                            id="email" name="email" type="email" placeholder="name@domain.com">
+                            id="email" name="email" required type="email" placeholder="name@domain.com">
                     </div>
                     <div>
                         <label class="block text-grey-darker text-sm mb-2" for="password">
@@ -36,15 +36,15 @@
                         </label>
                         <input
                             class="appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 placeholder-serv-text text-xs mb-3"
-                            id="password" name="password" type="password" placeholder="At least 8 characters">
+                            id="password" required name="password" type="password" placeholder="At least 8 characters">
                     </div>
                     <div>
-                        <label class="block text-grey-darker text-sm mb-2" for="password-confirm">
+                        <label class="block text-grey-darker text-sm mb-2" for="password_confirmation">
                             Konfimasai sandi
                         </label>
                         <input
                             class="appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 placeholder-serv-text text-xs mb-3"
-                            id="password-confirm" name="password-confirm" type="password"
+                            id="password_confirmation" name="password_confirmation" type="password"
                             placeholder="At least 8 characters">
                     </div>
                     <div class="flex items-center justify-between">
@@ -59,14 +59,13 @@
                         </div>
                     </div>
                 </div>
-                <!--footer-->
+
                 <div class="px-6 pb-6 rounded-b-xl mx-10">
                     <input type="hidden" name="auth" value="true">
-                    <a href="#"
-                        class="block text-center bg-serv-button text-white text-lg py-3 px-12 my-2 rounded-lg w-full"
-                        onclick="toggleModal('registerSuccessModal');toggleModal('registerModal')">
+                    <button type="submit"
+                        class="block text-center bg-serv-button text-white text-lg py-3 px-12 my-2 rounded-lg w-full">
                         Daftar
-                    </a>
+                    </button>
                     <p href="#" class="text-center py-5">
                         Apakah anda sudah memiliki akun? <a href="#" class="text-serv-button"
                             onclick="toggleModal('loginModal');toggleModal('registerModal') ">Masuk</a>
